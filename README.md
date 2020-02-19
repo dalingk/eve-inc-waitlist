@@ -7,26 +7,27 @@ For library licenses see licenses folder
 
 # Requirements
 * MySQL/MariaDB (for PosgresSQL the migration might not work, never tested)
-* all the libraries in "requirements.txt"
-* python library to connect to the chosen database
-* node (optional for JS minimization)
+* All the libraries in "requirements.txt"
+* Python library to connect to the chosen database
+* Node (optional for JS minimization)
 
 
 # Installation
-1. install python >=3.6
-2. install all the requirements by doing pip install -r requirements.txt
-3. install your database connection library (e.g. mysqlclient>=1.3.10)
-4. run `python main.py --create-config` to create a default config file, this can also be used on version upgrades to add default values for new configuration options without starting up the waitlist.
+1. Install Python >=3.6
+2. Install all the requirements by doing pip install -r requirements.txt
+3. Install your database connection library (e.g. mysqlclient>=1.3.10)
+4. Run `python main.py --create-config` to create a default config file, this can also be used on version upgrades to add default values for new configuration options without starting up the waitlist.
 5. Create an empty database-scheme in your chosen database server, make sure to use a unicode character set (uf8mb4), utf8mb4 is recommended and not normal utf8 https://mariadb.com/kb/en/library/unicode/ (basically utf8 isn't complete utf8, but utf8mb4 is), the collate to choose depends on which language your users are most likely going to use, it *should* work with all of them, if you don't know what to take, just leave your database default.
 6. Create a new ESI Application on https://developers.eveonline.com/applications . More information [here](#sso-information)
-7. open `config\config.cfg` in your favorite text editor and adjust the settings
-8. run `python manager.py db upgrade` which creates the database schema
-9. execute `python create_admin.py` to create the initial admin account.
-Enter the character name of your main character as account name, then enter the same name as character to associate.
-When asked for more characters just press enter without entering anything.
-Further admin accounts can be created over the account management on the website
-10. Use the command `pybabel compile -d translations` to compile the translation files.
-11. Got to `static\js\config\` and create a `stattool_config.js` (an example file is in there with the options)
+7. Open `config\config.cfg` in your favorite text editor and adjust the settings
+8. Go to `static\js\config\` and create a `stattool_config.js` (an example file is in there with the options)
+9. Run `python manager.py db upgrade` which creates the database schema
+10. execute `python create_admin.py` to create the initial admin account.
+    * Enter the character name of your main character as account name, then enter the same name as character to associate.
+    * When asked for more characters just press enter without entering anything.
+    * When asked for `charid` choose your character's ID (its printed at the end of the prompt).
+    * Further admin accounts can be created over the account management on the website.
+11. Use the command `pybabel compile -d translations` to compile the translation files.
 12. Start the waitlist with `python main.py` and visit it to login with the character that was setup as admin in the previous step.
 13. Now configure groups and permissions :)
 14. Import needed static data! You can find the interface for it under `Setting`->`Static Data Import`.
@@ -42,6 +43,8 @@ You need to create an application on the [CCP 3rd Party Developer Page](https://
 Callback URL:
 
 (path to your waitlist install)/fc_sso/cb
+
+For example: `http://waitlistdev:8080/fc_sso/cb`
 
 The application needs the following scopes:
 *  publicData
